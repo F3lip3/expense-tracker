@@ -10,3 +10,7 @@ body {
 .pointable {
   cursor: pointer;
 }
+
+.navbar {
+  margin-bottom: 0 !important;
+}

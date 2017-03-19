@@ -17,6 +17,19 @@ app.config(function($routeProvider) {
         }
       }
     })
+    .when('/preferences', {
+      template: '<preferences-edit user-preferences="$resolve.userPreferences"></preferences-edit>',
+      resolve: {
+        currentAuth: function (auth) {
+          return auth.$requireSignIn(); 
+        },
+        userPreferences: function (fbRef, $firebaseObject, auth) {
+          return auth.$requireSignIn().then(function () {
+            return $firebaseObject(fbRef.getPreferencesRef()).$loaded();
+          });
+        }
+      }
+    })
     .when('/login', {
       template: '<login current-auth="$resolve.currentAuth"></login>',
       resolve: {
